@@ -1,2 +1,3 @@
 # Optional REPL history
 .idea
+/node_modules
