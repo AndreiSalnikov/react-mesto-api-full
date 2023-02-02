@@ -1,0 +1,21 @@
+.header__user-info {
+  display: flex;
+  align-items: baseline;
+  color: #fff;
+}
+
+@media screen and (max-width: 630px) {
+  .header__user-info {
+    visibility: hidden;
+    opacity: 0;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
+    width: 100%;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .header__user-info {
+    margin-right: 19px;
+  }
+}

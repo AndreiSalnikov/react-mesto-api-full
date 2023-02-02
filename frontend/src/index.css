@@ -1,0 +1,79 @@
+@import url("./vendor/normalize.css");
+@import url("./vendor/fonts/fonts.css");
+@import url("./blocks/page-root/page-root.css");
+@import url("./blocks/popup/popup.css");
+@import url("./blocks/popup/_opened/popup_opened.css");
+@import url("./blocks/popup/__container/popup__container.css");
+@import url("./blocks/popup/__close-button/popup__close-button.css");
+@import url("./blocks/popup/__img/popup__img.css");
+@import url("./blocks/popup/__figcaption/popup__figcaption.css");
+@import url("./blocks/popup/__figure/popup__figure.css");
+@import url("./blocks/popup/__form/popup__form.css");
+@import url("./blocks/popup/__title/popup__title.css");
+@import url("./blocks/popup/__info/popup__info.css");
+@import url("./blocks/popup/__save-button/popup__save-button.css");
+@import url("./blocks/popup/__save-button/_disabled/popup__save-button_disabled.css");
+@import url("./blocks/popup/__input/popup__input.css");
+@import url("./blocks/popup/__img-icon/popup__img-icon.css");
+@import url("./blocks/popup/__registration-text/popup__registration-text.css");
+@import url("./blocks/popup/__input/_error/popup__input_error_visible.css");
+@import url("./blocks/popup/__input/_type/popup__input_type_error.css");
+@import url("./blocks/popup/_overlay/popup_overlay_black.css");
+@import url("./blocks/header/header.css");
+@import url("./blocks/header/_mobile/header_mobile.css");
+@import url("./blocks/header/__user-info/header__user-info.css");
+@import url("./blocks/header/__user-info/_active/header__user-info_active.css");
+@import url("./blocks/header/__email/header__email.css");
+@import url("./blocks/header/__logo/header__logo.css");
+@import url("./blocks/header/__menu-link/header__menu-link.css");
+@import url("./blocks/hamburger/hamburger.css");
+@import url("./blocks/hamburger/__line/hamburger__line.css");
+@import url("./blocks/hamburger/__line/_active/hamburger__line_active.css");
+@import url("./blocks/header/__link/header__link.css");
+@import url("./blocks/authentication/authentication.css");
+@import url("./blocks/authentication/__title/authentication__title.css");
+@import url("./blocks/authentication/__form/authentication__form.css");
+@import url("./blocks/authentication/__input/authentication__input.css");
+@import url("./blocks/authentication/__button/authentication__button.css");
+@import url("blocks/authentication/__text/authentication__text.css");
+@import url("blocks/authentication/__link/authentication__link.css");
+@import url("./blocks/profile/profile.css");
+@import url("./blocks/profile/__left-group/profile__left-group.css");
+@import url("./blocks/profile/__avatar/profile__avatar.css");
+@import url("./blocks/profile/__avatar-image/profile__avatar-image.css");
+@import url("./blocks/profile/__info/profile__info.css");
+@import url("./blocks/profile/__title/profile__title.css");
+@import url("./blocks/profile/__edit-button/profile__edit-button.css");
+@import url("./blocks/profile/__subtitle/profile__subtitle.css");
+@import url("./blocks/profile/__add-button/profile__add-button.css");
+@import url("./blocks/photo-grid/photo-grid.css");
+@import url("./blocks/item/item.css");
+@import url("./blocks/item/__delete-img/item__delete-img.css");
+@import url("./blocks/item/__img/item__img.css");
+@import url("./blocks/item/__icon/item__icon.css");
+@import url("./blocks/item/__icon/_active/item__icon_active.css");
+@import url("./blocks/item/__text/item__text.css");
+@import url("./blocks/item/__like-container/item__like-container.css");
+@import url("./blocks/item/__group-icon/item__group-icon.css");
+@import url("./blocks/footer/footer.css");
+@import url("./blocks/footer/__copyright/footer__copyright.css");
+
+body {
+  min-width: 320px;
+  font-family: 'Inter', Arial, sans-serif;
+  background-color: #000;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+
+
+
+/*code {*/
+/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
+/*    monospace;*/
+/*}*/

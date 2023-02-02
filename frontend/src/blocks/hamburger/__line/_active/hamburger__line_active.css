@@ -1,0 +1,13 @@
+.hamburger__line_active:first-child {
+  transform: rotate(-45deg);
+}
+
+.hamburger__line_active:nth-child(2) {
+   opacity: 0;
+   transform: rotate(45deg);
+ }
+
+.hamburger__line_active:last-of-type {
+  transform: rotate(45deg);
+  margin-top: -18px;
+}

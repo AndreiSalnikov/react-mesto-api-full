@@ -1,0 +1,26 @@
+.popup__info {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding: 0 0 13px 0;
+  /*margin: 0 auto 26px;*/
+  margin: 0 auto 5px;
+  min-width: 358px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.popup__info:last-of-type {
+  margin: 0 auto 5px;
+}
+
+@media screen and (max-width: 560px) {
+  .popup__info {
+    margin: 0 auto 5px;
+    min-width: 238px;
+  }
+
+.popup__info:last-of-type {
+  margin: 0 auto 5px;
+  }
+}

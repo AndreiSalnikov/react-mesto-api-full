@@ -1,0 +1,16 @@
+.hamburger {
+  display: none;
+}
+
+@media screen and (max-width: 630px) {
+  .hamburger {
+    display: block;
+    position: absolute;
+    right: 30px;
+    background-color: transparent;
+    border: none;
+    bottom: 31px;
+    cursor: pointer;
+    height: 24px;
+  }
+}

@@ -1,0 +1,15 @@
+.item__icon {
+  margin-bottom: 3px;
+  padding: 0;
+  min-width: 22px;
+  min-height: 19px;
+  transition: opacity .3s ease-out;
+  background-image: url('../../../images/love-icon.svg');
+  border: none;
+  background-color: transparent;
+}
+
+.item__icon:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}

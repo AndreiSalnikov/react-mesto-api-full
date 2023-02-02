@@ -1,0 +1,13 @@
+.item__group-icon {
+  display: flex;
+  max-width: 246px;
+  justify-content: space-between;
+  margin: 25px 15px 25px 21px;
+  align-items: baseline;
+}
+
+@media screen and (max-width: 924px) {
+  .item__group-icon {
+  max-width: none;
+  }
+}
