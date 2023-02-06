@@ -1,6 +1,5 @@
 require('dotenv').config();
 const cors = require('cors');
-const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
@@ -15,6 +14,7 @@ const { PORT = 3000, MONGODB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = proce
 if (process.env.NODE_ENV !== 'production') {
   process.env.JWT_SECRET = 'devKey';
 }
+
 const app = express();
 
 app.use(express.json());
@@ -46,7 +46,6 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-app.use(express.static(path.join(__dirname, 'public')));
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });

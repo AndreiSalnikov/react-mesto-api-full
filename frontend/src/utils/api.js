@@ -1,9 +1,6 @@
-const jwt = localStorage.getItem('jwt')
-
 const settingUserApi = {
   baseUrl: "https://api.mestoforyou.nomoredomainsclub.ru",
   headers: {
-    authorization: `Bearer ${jwt}`,
     'Content-Type': 'application/json'
   }
 }
@@ -12,6 +9,15 @@ class Api {
   constructor(config) {
     this._url = config.baseUrl;
     this._headers = config.headers;
+    const jwt = localStorage.getItem('jwt')
+    if (jwt) {
+      this._headers.authorization = "Bearer " + jwt;
+    }
+  }
+
+  setToken(token) {
+     localStorage.setItem("jwt", token);
+    this._headers.authorization = "Bearer " + token;
   }
 
   _checkResponse(res) {

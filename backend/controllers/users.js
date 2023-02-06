@@ -65,12 +65,12 @@ module.exports.createUser = (req, res, next) => {
       if (err.code === 11000) {
         next(new ConflictError('Такой пользователь уже существует'));
       } else if (err.name === 'ValidationError') {
-        next(new BadRequest('Некорректный id'));
+        next(new BadRequest('Переданые некорректные данные для создания пользователя'));
       } else { next(err); }
     });
 };
 
-const updateUser = (req, res, next) => {
+module.exports.updateUser = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, req.body, {
     new: true,
     runValidators: true,
@@ -80,36 +80,22 @@ const updateUser = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequest('Переданы некорректные данные при обновлении данных пользователя'));
-      } else if (err.name === 'CastError') { next(new NotFound('Пользователь с таким id не найден')); } else {
+      } else if (err.name === 'CastError') { next(new BadRequest('Некорректный id')); } else {
         next(err);
       }
     });
 };
 
-module.exports.updateProfile = (req, res) => {
-  const { name, about } = req.body; // чтобы валидация не ломалась
-  req.body = { name, about }; // чтобы валидация не ломалась
-  return updateUser(req, res);
-};
-
-module.exports.updateAvatar = (req, res) => {
-  const { avatar } = req.body; // чтобы валидация не ломалась
-  req.body = { avatar }; // чтобы валидация не ломалась
-  return updateUser(req, res);
-};
-
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
-
   return User.findUserByCredentials(email, password)
     .then((user) => {
       // создадим токен
       const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
-      res.cookie('jwt', token, {
-        maxAge: 3600000,
-        httpOnly: true,
-      });
-      // вернём токен дополнительно
+      // res.cookie('jwt', token, {
+      //   maxAge: 3600000,
+      //   httpOnly: true,
+      // });
       res.send({ token });
     })
     .catch((err) => {
