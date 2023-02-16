@@ -1,21 +1,21 @@
 import PopupWithForm from './PopupWithForm'
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
+import {useForm} from "react-hook-form";
 
 function AddPlacePopup({isOpen, onClose, onAddCard, isLoading}) {
-  const [namePlace, setNamePlace] = useState('');
-  const [link, setLink] = useState('');
+  const {register, formState: {errors,isValid},handleSubmit,reset } = useForm({mode: "onChange"})
 
   useEffect(() => {
-    setNamePlace('');
-    setLink('');
+    reset()
   }, [isOpen]);
 
-  function handleSubmit(e) {
+  function onSubmit({title,url},e) {
     e.preventDefault();
     onAddCard({
-      name: namePlace,
-      link: link,
+      name: title,
+      link: url,
     });
+    reset();
   }
 
   return (<PopupWithForm
@@ -25,32 +25,52 @@ function AddPlacePopup({isOpen, onClose, onAddCard, isLoading}) {
     isLoading={isLoading}
     textLoad='Сохранение...'
     textOnButton='Создать'
-    onSubmit={handleSubmit}
+    onSubmit={handleSubmit(onSubmit)}
     isOpen={isOpen}
     onClose={onClose}
+    isValid={isValid}
   >
     <input
-      value={namePlace}
-      onChange={e => setNamePlace(e.target.value)}
-      type="text"
-      id="inputAddPlace"
-      name="name"
+      {...register('title',{required: 'Обязательное поле',
+        validate: {
+          minLength: (value) => value.length >= 2 || `Текст должен быть не короче 2 симв. Длина текста сейчас: ${value.length}`
+        },
+      })}
       placeholder="Название"
-      className="popup__info popup__info_text_title"
-      minLength={2}
-      maxLength={30}
-      required/>
-    <span className="popup__input" id="inputAddPlace-error"/>
+      className={"popup__info popup__info_text_title"}
+      // value={namePlace}
+      // onChange={e => setNamePlace(e.target.value)}
+      // type="text"
+      // id="inputAddPlace"
+      // name="name"
+      // placeholder="Название"
+      // className="popup__info popup__info_text_title"
+      // minLength={2}
+       maxLength={30}
+      // required
+
+    />
+    <span className={ errors.title ? "popup__input popup__input_error_visible" : "popup__input"}>{errors?.title?.message || ""}</span>
+    {/*<span className="popup__input" id="inputAddPlace-error"/>*/}
     <input
-      value={link}
-      onChange={e => setLink(e.target.value)}
-      type="url"
-      id="inputAddLink"
-      name="link"
+      {...register('url',{required: 'Обязательное поле',
+        validate: {
+          isUrl: (value) => /[https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}]/gi.test(value) || `Введите корректную ссылку на картинку`
+        },
+      })}
       placeholder="Ссылка на картинку"
-      className="popup__info popup__info_text_link"
-      required/>
-    <span className="popup__input" id="inputAddLink-error"/>
+      className={"popup__info popup__info_text_link"}
+      // value={link}
+      // onChange={e => setLink(e.target.value)}
+      // type="url"
+      // id="inputAddLink"
+      // name="link"
+      // placeholder="Ссылка на картинку"
+      // className="popup__info popup__info_text_link"
+      // required
+    />
+    <span className={ errors.url ? "popup__input popup__input_error_visible" : "popup__input"}>{errors?.url?.message || ""}</span>
+    {/*<span className="popup__input" id="inputAddLink-error"/>*/}
   </PopupWithForm>)
 }
 

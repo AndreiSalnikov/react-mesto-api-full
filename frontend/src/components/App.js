@@ -59,17 +59,6 @@ function App() {
     }
   }
 
-  // useEffect(() => {
-  //   const jwt = localStorage.getItem("jwt");
-  //   if (jwt) {
-  //     auth.tokenCheck(jwt).then((res) => {
-  //       setLoggedIn(true);
-  //       setEmail(res.email);
-  //       history.push("/");
-  //     }).catch((err) => console.log(err))
-  //   }
-  // }, [history]);
-
   function handleAddPlaceSubmit(data) {
     setIsLoading(true);
     api.addServerCard(data, cardsPath).then((newCard) => {
@@ -95,7 +84,6 @@ function App() {
     setIsLoading(true);
     auth.login(email, password).then((res) => {
       api.setToken(res.token)
-    //  localStorage.setItem("jwt", res.token);
       setLoggedIn(true);
       setEmail(email);
       history.push("/");

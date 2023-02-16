@@ -1,6 +1,6 @@
 import Popup from "./Popup";
 
-function PopupWithForm({name, id, title, onClose, isOpen, textOnButton, children, onSubmit, textLoad, isLoading}) {
+function PopupWithForm({name, id, title, onClose, isOpen, textOnButton, children, onSubmit, textLoad, isLoading, isValid}) {
 
   return (<Popup isOpen={isOpen} onClose={onClose} id={id}>
     <div className="popup__container">
@@ -9,7 +9,8 @@ function PopupWithForm({name, id, title, onClose, isOpen, textOnButton, children
       <form onSubmit={onSubmit} name={name} id="popupEditForm" className="popup__form">
         {children}
         <button type="submit" id="submitEditButton"
-                className="popup__save-button">{isLoading ? textLoad : textOnButton}</button>
+                className={isValid ? "popup__save-button" : "popup__save-button popup__save-button_disabled" } disabled={!isValid}
+               >{isLoading ? textLoad : textOnButton}</button>
       </form>
     </div>
   </Popup>);

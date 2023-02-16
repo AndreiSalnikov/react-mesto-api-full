@@ -37,6 +37,9 @@
 @import url("./blocks/authentication/__button/authentication__button.css");
 @import url("blocks/authentication/__text/authentication__text.css");
 @import url("blocks/authentication/__link/authentication__link.css");
+@import url("blocks/authentication/__error/authentification__error.css");
+@import url("blocks/authentication/__error/_active/authentication__error_active.css");
+@import url("blocks/authentication/__button/_disabled/authentication__button_disabled.css");
 @import url("./blocks/profile/profile.css");
 @import url("./blocks/profile/__left-group/profile__left-group.css");
 @import url("./blocks/profile/__avatar/profile__avatar.css");

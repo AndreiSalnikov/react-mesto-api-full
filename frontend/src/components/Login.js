@@ -1,33 +1,36 @@
-import {useState} from 'react';
+import {useForm} from "react-hook-form";
 
 const Login = ({onLogin, textLoad, textOnButton, isLoading}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const {register, formState: {errors,isValid},handleSubmit,reset } = useForm({mode: "onChange"})
 
-  function handleSubmit(e) {
+  function onSubmit(data,e) {
     e.preventDefault()
-    onLogin(email, password)
-  } 
+    onLogin(data.email, data.password)
+    reset();
+  }
 
   return (
     <div className={"authentication"}>
       <h2 className={"authentication__title"}>Вход</h2>
-      <form className={"authentication__form"} onSubmit={handleSubmit}>
+      <form className={"authentication__form"} onSubmit={handleSubmit(onSubmit)}>
         <input
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          type={"email"}
-          className={"authentication__input"}
+          {...register('email',{required: 'Обязательное поле', pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Некорректная электронная почта"
+            }})}
           placeholder="Email"
-          required/>
-        <input
-          value={password}
-          onChange={e => setPassword(e.target.value)}
-          type={"password"}
           className={"authentication__input"}
+        />
+        <span className={ errors.email ? "authentication__error authentication__error_active" : "authentication__error"}>{errors?.email?.message || ""}</span>
+        <input
+          {...register('password',{required: 'Обязательное поле',
+          })}
           placeholder="Пароль"
-          required/>
-        <button className={"authentication__button"}>{isLoading ? textLoad : textOnButton}</button>
+          className={"authentication__input"}
+          type={"password"}
+        />
+        <span className={errors.password ? "authentication__error authentication__error_active" : "authentication__error"}>{errors?.password?.message || ""}</span>
+        <button className={isValid ? "authentication__button" : "authentication__button_disabled" } disabled={!isValid}>{isLoading ? textLoad : textOnButton}</button>
       </form>
     </div>
   );

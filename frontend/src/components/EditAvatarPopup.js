@@ -1,17 +1,18 @@
 import PopupWithForm from "./PopupWithForm";
-import {useRef, useEffect} from 'react'
+import {useEffect} from 'react'
+import {useForm} from "react-hook-form";
 
 function EditAvatarPopup({isOpen, onClose, isLoading, onUpdateAvatar}) {
-  const avatarRef = useRef();
+  const {register, formState: {errors,isValid},handleSubmit,reset } = useForm({mode: "onChange"})
 
   useEffect(() => {
-    avatarRef.current.value = ""
-  }, [isOpen]);
+    reset()
+  }, [isOpen,reset]);
 
-  function handleSubmit(e) {
+  function onSubmit({url},e) {
     e.preventDefault();
     onUpdateAvatar({
-      avatar: avatarRef.current.value
+      avatar: url
     });
   }
 
@@ -24,17 +25,19 @@ function EditAvatarPopup({isOpen, onClose, isLoading, onUpdateAvatar}) {
     textOnButton='Сохранить'
     isOpen={isOpen}
     onClose={onClose}
-    onSubmit={handleSubmit}
+    onSubmit={handleSubmit(onSubmit)}
+    isValid={isValid}
   >
     <input
-      ref={avatarRef}
-      type="url"
-      id="inputEditLink"
-      name="link"
+      {...register('url',{required: 'Обязательное поле',
+        validate: {
+          isUrl: (value) => /[https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,}]/gi.test(value) || `Введите корректную ссылку на картинку`
+        },
+      })}
       placeholder="Ссылка на аватар"
       className="popup__info popup__info_text_link"
-      required/>
-    <span className="popup__input" id="inputEditLink-error"/>
+    />
+    <span className={ errors.url ? "popup__input popup__input_error_visible" : "popup__input"}>{errors?.url?.message || ""}</span>
   </PopupWithForm>)
 }
 

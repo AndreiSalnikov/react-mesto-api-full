@@ -1,18 +1,21 @@
 import PopupWithForm from './PopupWithForm'
-import {useState, useEffect, useContext} from 'react'
+import {useEffect, useContext} from 'react'
 import CurrentUserContext from "../contexts/CurrentUserContext";
+import {useForm} from "react-hook-form";
 
 function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoading}) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const {register, formState: {errors,isValid},handleSubmit,reset } = useForm({mode: "onChange"})
+
   const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser,isOpen]);
+    reset({
+      name: currentUser.name,
+      description: currentUser.about
+    })
+  }, [currentUser,isOpen,reset]);
 
-  function handleSubmit(e) {
+  function onSubmit({name,description},e) {
     e.preventDefault();
     onUpdateUser({
       name: name,
@@ -29,31 +32,30 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoading}) {
     textOnButton='Сохранить'
     isOpen={isOpen}
     onClose={onClose}
-    onSubmit={handleSubmit}>
+    onSubmit={handleSubmit(onSubmit)}
+    isValid={isValid}>
     <input
-      value={name}
-      onChange={e => setName(e.target.value)}
-      name='name'
-      type="text"
-      id="inputProfileName"
-      placeholder="имя"
-      className="popup__info popup__info_text_name"
-      minLength={2}
+      {...register('name',{required: 'Обязательное поле',
+        validate: {
+          minLength: (value) => value.length >= 2 || `Текст должен быть не короче 2 симв. Длина текста сейчас: ${value.length}`
+        },
+      })}
+      placeholder="Имя"
+      className={"popup__info popup__info_text_name"}
       maxLength={40}
-      required
     />
-    <span className="popup__input" id="inputProfileName-error"/>
+    <span className={ errors.name ? "popup__input popup__input_error_visible" : "popup__input"}>{errors?.name?.message || ""}</span>
     <input
-      value={description}
-      onChange={e => setDescription(e.target.value)}
-      type="text" id="inputProfileJob"
-      name="description" placeholder="профессия"
-      className="popup__info popup__info_text_job"
-      minLength={2}
+      {...register('description',{required: 'Обязательное поле',
+        validate: {
+          minLength: (value) => value.length >= 2 || `Текст должен быть не короче 2 симв. Длина текста сейчас: ${value.length}`
+        },
+      })}
+      placeholder="Профессия"
+      className={"popup__info popup__info_text_job"}
       maxLength={200}
-      required
     />
-    <span className="popup__input" id="inputProfileJob-error"/>
+    <span className={ errors.description ? "popup__input popup__input_error_visible" : "popup__input"}>{errors?.description?.message || ""}</span>
   </PopupWithForm>)
 }
 

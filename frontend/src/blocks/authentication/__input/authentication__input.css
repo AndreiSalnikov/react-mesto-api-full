@@ -6,9 +6,5 @@
   background: none;
   border-style: none;
   border-bottom: 2px solid #ccc;
-  margin-bottom: 30px;
-}
-
-.authentication__input:last-of-type {
-  margin-bottom: 216px;
+  margin-bottom: 12px;
 }
